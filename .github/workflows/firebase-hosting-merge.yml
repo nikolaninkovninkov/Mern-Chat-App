@@ -18,20 +18,3 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
           channelId: live
           projectId: ${{secrets.APP_ID}}
-  build_and_deploy_server:
-    runs-on: ubuntu-latest
-    env:
-      IMAGE_URL: gcr.io/${{secrets.APP_ID}}/node-server:latest
-    steps:
-      - uses: actions/checkout@v2
-      - run: npm run build-server
-      - uses: google-github-actions/setup-gcloud@master
-        with:
-          version: 'latest'
-          service_account_email: ${{ secrets.CLOUD_RUN_DEPLOY_EMAIL}}
-          service_account_key: ${{ secrets.CLOUD_RUN_DEPLOY_KEY}}
-          export_default_credentials: true
-      - run: gcloud auth configure-docker
-      - run: cd server && docker build . -t $IMAGE_URL
-      - run: docker push $IMAGE_URL
-      - run: gcloud run deploy node-server --image $IMAGE_URL --region europe-west6-a --platform managed --project ${{ secrets.APP_ID }}
