@@ -17,10 +17,16 @@ connect(process.env.DB_URI + '', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
-}).then(() => {
-  app.listen(port, () => {
-    console.log(
-      `Server listening on http://localhost:${port} and MongoDB running`,
-    );
-  });
+}).then(() => {});
+app.listen(port, () => {
+  console.log(`Server listening on http://localhost:${port}`);
+  connect(process.env.DB_URI + '', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+  })
+    .catch((err) => console.log(err))
+    .then(() => {
+      console.log('MongoDB connected successfully! <3');
+    });
 });
