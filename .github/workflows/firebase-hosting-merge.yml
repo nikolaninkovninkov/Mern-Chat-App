@@ -32,5 +32,5 @@ jobs:
           service_account_key: ${{ secrets.CLOUD_RUN_DEPLOY_KEY}}
       - run: gcloud auth configure-docker --quiet
       - run: cd server && docker build . -t $IMAGE_URL
-      - run: docker push $IMAGE_URL
-      - run: gcloud run deploy ${{secrets.APP_ID}} --image $IMAGE_URL --region europe-west6-a --platform managed
+      - run: gcloud builds submit --tag $IMAGE_URL
+      - run: gcloud run deploy --image $IMAGE_URL --region europe-west6-a --platform managed
