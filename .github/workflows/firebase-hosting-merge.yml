@@ -21,7 +21,7 @@ jobs:
   build_and_deploy_server:
     runs-on: ubuntu-latest
     env:
-      IMAGE_URL: gcr.io/${secrets.APP_ID}/node-server
+      IMAGE_URL: gcr.io/${{secrets.APP_ID}}/node-server
     steps:
       - uses: actions/checkout@v2
       - run: npm run build-server
