@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "cd client && npm i --only-production && yarn build"
+    "build-client": "cd client && npm i --only-production && yarn build",
+    "build-server": "cd server && npm i && tsc"
   },
   "repository": {
     "type": "git",
