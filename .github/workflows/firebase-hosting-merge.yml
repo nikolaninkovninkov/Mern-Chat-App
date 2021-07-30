@@ -24,8 +24,9 @@ jobs:
       IMAGE_URL: gcr.io/${secrets.APP_ID}/node-server
     steps:
       - uses: actions/checkout@v2
+      - run: npm run build-server
       - run: cd server
-      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      - uses: google-github-actions/setup-gcloud@master
         with:
           GCP_PROJECT_ID: ${{secrets.APP_ID}}
           service_account_email: ${{ secrets.CLOUD_RUN_DEPLOY_EMAIL}}
