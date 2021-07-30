@@ -1,6 +1,6 @@
 FROM node:14-slim
 WORKDIR /
 COPY package*.json ./
-RUN npm i && npm i -g typescript && tsc
+RUN npm i && npm i -g ts-node
 COPY . ./ 
-CMD ["node", "./build/app.js"]
+CMD ["ts-node", "./src/app.ts"]
