@@ -1,0 +1,20 @@
+{
+  "name": "mern-chat-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "cd client && yarn build && cd ../server && tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nikibiki61/Mern-Chat-App.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nikibiki61/Mern-Chat-App/issues"
+  },
+  "homepage": "https://github.com/nikibiki61/Mern-Chat-App#readme"
+}
