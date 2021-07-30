@@ -25,6 +25,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: Go in server folders
         run: cd server
       - name: Login
         uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
