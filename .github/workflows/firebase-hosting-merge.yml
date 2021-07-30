@@ -24,7 +24,7 @@ jobs:
       IMAGE_URL: gcr.io/${{secrets.APP_ID}}/node-server:latest
     steps:
       - uses: actions/checkout@v2
-#       - run: npm run build-server
+      - run: npm run build-server
       - uses: google-github-actions/setup-gcloud@master
         with:
           version: 'latest'
