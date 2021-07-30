@@ -31,7 +31,7 @@ jobs:
           service_account_email: ${{ secrets.CLOUD_RUN_DEPLOY_EMAIL}}
           service_account_key: ${{ secrets.CLOUD_RUN_DEPLOY_KEY}}
           export_default_credentials: true
-      - run: gcloud auth configure-dockers
+      - run: gcloud auth configure-docker
       - run: cd server && docker build . -t $IMAGE_URL
       - run: docker push $IMAGE_URL
       - run: |
