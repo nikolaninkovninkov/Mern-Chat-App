@@ -14,12 +14,29 @@ jobs:
       - run: npm run build-client
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}'
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
           channelId: live
-          projectId: '${{secrets.APP_ID}}'
+          projectId: ${{secrets.APP_ID}}
   build_and_deploy_server:
     runs-on: ubuntu-latest
+    env:
+      IMAGE_URL: gcr.io/${secrets.APP_ID}/node-server
     steps:
-      - uses: actions/checkout@v2
-      - run: npm run build-server
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        run: cd server
+      - name: Login
+        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          GCP_PROJECT_ID: ${{secrets.APP_ID}}
+          service_account_email: ${{ secrets.CLOUD_RUN_DEPLOY_EMAIL}}
+          service_account_key: ${{ secrets.CLOUD_RUN_DEPLOY_KEY}}
+      - name: Configure gcloud to docker
+        run: gcloud auth configure-docker --quiet
+      - name: Build docker image
+        run: docker build . -t $IMAGE_URL
+      - name: Push docker image
+        run: docker push $IMAGE_URL
+      - name: Deploy docker image
+        run: gcloud run deploy ${{secrets.APP_ID}} --image $IMAGE_URL --region europe-west6-a --platform managed
