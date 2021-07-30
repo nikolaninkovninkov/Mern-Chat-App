@@ -24,4 +24,4 @@ jobs:
       - uses: actions/checkout@v2
       - run: |
           npm run build-server
-          echo "Hi"
+          echo '${{secrets.APP_ID}}'
