@@ -30,6 +30,7 @@ jobs:
           GCP_PROJECT_ID: ${{secrets.APP_ID}}
           service_account_email: ${{ secrets.CLOUD_RUN_DEPLOY_EMAIL}}
           service_account_key: ${{ secrets.CLOUD_RUN_DEPLOY_KEY}}
+      - run: gcloud config set project ${{secrets.APP_ID}}
       - run: gcloud auth configure-docker --quiet
       - run: cd server && docker build . -t $IMAGE_URL
       - run: gcloud builds submit --tag $IMAGE_URL
