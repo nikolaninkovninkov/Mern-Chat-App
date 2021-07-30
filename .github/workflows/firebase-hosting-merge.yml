@@ -25,13 +25,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: npm run build-server
-      - run: cd server
       - uses: google-github-actions/setup-gcloud@master
         with:
           GCP_PROJECT_ID: ${{secrets.APP_ID}}
           service_account_email: ${{ secrets.CLOUD_RUN_DEPLOY_EMAIL}}
           service_account_key: ${{ secrets.CLOUD_RUN_DEPLOY_KEY}}
       - run: gcloud auth configure-docker --quiet
-      - run: docker build . -t $IMAGE_URL
+      - run: cd server && docker build . -t $IMAGE_URL
       - run: docker push $IMAGE_URL
       - run: gcloud run deploy ${{secrets.APP_ID}} --image $IMAGE_URL --region europe-west6-a --platform managed
