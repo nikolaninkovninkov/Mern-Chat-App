@@ -10,7 +10,7 @@ const port = process.env.PORT || 8080;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.get('/', (req, res) => {
-  res.send('Heloo from root! Fix typo for me!');
+  res.send('Hello kitty');
 });
 app.use('/api', apiRouter);
 connect(process.env.DB_URI + '', {
