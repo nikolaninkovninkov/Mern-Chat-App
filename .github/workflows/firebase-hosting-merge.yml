@@ -32,5 +32,5 @@ jobs:
           service_account_key: ${{ secrets.CLOUD_RUN_DEPLOY_KEY}}
           export_default_credentials: true
       - run: gcloud auth configure-docker
-      - run: cd server && gcloud builds submit --tag $IMAGE_URL --project mern-app-b4034
-      - run: gcloud run deploy node-server --region us-central1 --allow-unauthenticated --image $IMAGE_URL
+      - run: cd server && gcloud builds submit --tag $IMAGE_URL --project ${{secrets.APP_ID}}
+      - run: gcloud run deploy node-server --region us-central1 --allow-unauthenticated --image $IMAGE_URL --project ${{secrets.APP_ID}}
