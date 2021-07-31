@@ -21,8 +21,16 @@ mongoose_1.connect(process.env.DB_URI + '', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
-}).then(function () {
-    app.listen(port, function () {
-        console.log("Server listening on http://localhost:" + port + " and MongoDB running");
+}).then(function () { });
+app.listen(port, function () {
+    console.log("Server listening on http://localhost:" + port);
+    mongoose_1.connect(process.env.DB_URI + '', {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useFindAndModify: false,
+    })
+        .catch(function (err) { return console.log(err); })
+        .then(function () {
+        console.log('MongoDB connected successfully! <3');
     });
 });

@@ -3,4 +3,4 @@ WORKDIR /
 COPY package*.json ./
 RUN npm i --only=production
 COPY . ./ 
-CMD ["node", "./dist/app.js"]
+CMD ["node", "./dist/app.js"] 
